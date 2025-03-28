@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Login Form | Rental C</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+  </head>
+<body>
+  <div class="main_div">
+    <div class="title">Login Form</div>
+    
+    <form id="loginForm">
+      <div class="input_box">
+        <input type="text" id="username" placeholder="User Name" required>
+        <div class="icon"><i class="fas fa-user"></i></div>
+      </div>
+      <div class="input_box">
+        <input type="password" id="password" placeholder="Password" required>
+        <div class="icon"><i class="fas fa-lock"></i></div>
+      </div>
+      <div class="option_div"></div>
+      <div class="input_box button">
+        <input type="submit" value="Login">
+      </div>
+      <div class="sign_up">
+        Not a member? <a href="Registation.html">Signup now</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        // Get user input values
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        // Send login data to the backend
+        fetch("Backend URL", {  // Replace with your backend URL -----------------------------------------------------
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username: username, password: password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Login successful!");
+                window.location.href = "dashboard.html"; // Redirect to dashboard on success
+            } else {
+                alert("Invalid username or password.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Ooops! An error occurred. Please try again.");
+        });
+    });
+  </script>
+</body>
+</html>
+
